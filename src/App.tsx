@@ -7,9 +7,6 @@ function App() {
     <Button></Button>
     <Button/>
     <Button />
-
-    
-    
     </>
   );
 }
