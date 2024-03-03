@@ -1,19 +1,11 @@
-import { useState } from "react";
+import { ButtonHTMLAttributes } from "react";
+import '../styles/button.scss'
+type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement>
 
-export function Button() {
-  const [valor, setValor] = useState(0);
-  //USE STATE É INICIADO COM O VALOR DA VARIÁVEL > NUMBER 0
-  //E A SEGUNDA É A FUNÇÃO CALLBACK PARA ALTERAR A FUNÇÃO DE VALOR! 
-  //SETVALOR SERVER PARA ALTERAR O VALOR, ATUALIZÁ-LO.
-  
-  function incrementa(){
-    console.log(valor)
-    setValor(valor+1);
-  }
+export function Button(props: ButtonProps) {
   return (
-    <button onClick={incrementa}>{valor}</button>
+    <button className="button" {...props}></button>
   )
     
-  
 }
 
