@@ -3,17 +3,15 @@ import logoImg from '../assets/images/logo.svg';
 import googleIconImg from '../assets/images/google-icon.svg';
 import '../styles/auth.scss';
 import {Button} from '../components/Button';
-import { useNavigate } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { firebase, auth } from '../services/firebase';
 
 export function Home() {
-    let navigate = useNavigate();
+    let navigate = useHistory();
 
     function handleCreateRoom(){
         var provider = new firebase.auth.GoogleAuthProvider()
-        auth.signInWithPopup(provider).then(result => {
-            console.log(result)
-        })
+       auth.signInWithPopup(provider);
         //navigate("/room/new");
     }
     return (
