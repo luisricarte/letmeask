@@ -3,6 +3,7 @@ import logoImg from '../assets/images/logo.svg';
 import '../styles/auth.scss';
 import {Button} from '../components/Button';
 import { Link } from 'react-router-dom';
+import { useContext } from 'react';
 
 export function NewRoom() {
     return (
