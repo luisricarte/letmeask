@@ -1,8 +1,5 @@
 import { useHistory } from 'react-router-dom';
-import { FormEvent, useContext, useState } from 'react';
-
-import { AuthContext } from '../contexts/AuthContext';
-
+import { FormEvent, useState } from 'react';
 
 import illustrationImg from '../assets/images/illustration.svg';
 import logoImg from '../assets/images/logo.svg';
@@ -41,7 +38,7 @@ export function Home() {
             return;
         }
 
-        history.push(`rooms/${roomCode}`)
+        history.push(`rooms/${roomCode}`);
     }
 
     return (
