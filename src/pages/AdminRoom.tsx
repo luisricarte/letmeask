@@ -57,7 +57,7 @@ export function AdminRoom(){
                     <img src={logoImg} alt="imagem logo" />
                     <div>
                         <RoomCode code={roomId}/>
-                        <Button>Encerrar Sala</Button>
+                        <Button isOutLined>Encerrar Sala</Button>
                     </div>
 
                 </div>
