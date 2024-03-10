@@ -7,27 +7,10 @@ import { FormEvent, useEffect, useState } from 'react';
 import { useAuth } from '../hooks/useAuth';
 import { database } from '../services/firebase';
 import { Question } from '../components/Question';
+import { useRoom } from '../hooks/useRoom';
 
-type FireBaseQuestions = Record<string, {
-    author: {
-        name: string,
-        avatar: string;
-    }
-    content: string;
-    isAnswered: boolean;
-    isHighlighted: boolean;
-}>
 
-type QuestionType = {
-    id: string;
-    author: {
-        name: string,
-        avatar: string;
-    }
-    content: string;
-    isAnswered: boolean;
-    isHighlighted: boolean;
-}
+
 
 type RoomParams = {
     id: string;
@@ -38,32 +21,8 @@ export function Room(){
     const params = useParams<RoomParams>();
     const roomId = params.id;
     const [newQuestion, setNewQuestion] = useState('')
-    const [questions, setQuestions] = useState<QuestionType[]>([])
-    const [title, setTitle] = useState('');
+    const { questions, title } = useRoom(roomId)
 
-
-    useEffect(() => {
-        const roomRef = database.ref(`rooms/${roomId}`);
-
-        roomRef.on('value', room => {
-            const databaseRoom = room.val();
-            const firebaseQuestions = room.val().questions as FireBaseQuestions ?? {};
-        
-            const parsedQuestions = Object.entries(firebaseQuestions).map(([key, value]) => 
-                {
-                    return {
-                        id: key,
-                        content: value.content,
-                        author: value.author,
-                        isHighlighted: value.isHighlighted,
-                        isAnswered: value.isAnswered
-                    }
-                })
-            
-            setTitle(databaseRoom.title)
-            setQuestions(parsedQuestions);
-        })
-    }, [roomId])
 
     async function handleSendQuestion(event: FormEvent) {
         event.preventDefault();
@@ -97,16 +56,12 @@ export function Room(){
                 <div className="content">
                     <img src={logoImg} alt="imagem logo" />
                     <RoomCode code={roomId}/>
-
                 </div>
             </header>
             <main>
                 <div className="room-title">
                     <h1>Sala {title}</h1>
-                    {
-                        questions.length > 0 && <span>{questions.length} pergunta(s)</span>
-                    }
-                    
+                    {questions.length > 0 && <span>{questions.length} pergunta(s)</span>}
                 </div>
                 <form onSubmit={handleSendQuestion}>
                     <textarea 
