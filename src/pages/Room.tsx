@@ -3,7 +3,7 @@ import { Button } from '../components/Button';
 import { RoomCode } from '../components/RoomCode';
 import { useParams } from 'react-router-dom';
 import '../styles/room.scss';
-import { FormEvent, useEffect, useState } from 'react';
+import { FormEvent, useState } from 'react';
 import { useAuth } from '../hooks/useAuth';
 import { database } from '../services/firebase';
 import { Question } from '../components/Question';
@@ -24,7 +24,7 @@ export function Room(){
     async function handleSendQuestion(event: FormEvent) {
         event.preventDefault();
 
-        if (newQuestion.trim() == ''){
+        if (newQuestion.trim() === ''){
             return;
         }
 
