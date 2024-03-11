@@ -6,7 +6,8 @@ import '../styles/room.scss';
 //import { useAuth } from '../hooks/useAuth';
 import { Question } from '../components/Question';
 import { useRoom } from '../hooks/useRoom';
-
+import deleteImg from '../assets/images/delete.svg';
+import { database } from '../services/firebase';
 
 
 
@@ -19,6 +20,12 @@ export function AdminRoom(){
     const params = useParams<RoomParams>();
     const roomId = params.id;
     const { questions, title } = useRoom(roomId)
+
+    async function handleDeleteQuestion(questionId:string){
+        if (window.confirm('Tem certeza que deseja excluir essa pergunta?')){
+            await database.ref(`rooms/${roomId}/questions/${questionId}`).remove()
+        }
+    }
 
     return (
         <div id="page-room">
@@ -44,7 +51,13 @@ export function AdminRoom(){
                                 key={question.id}
                                 content={question.content}
                                 author={question.author}
-                            />
+                            >
+                                <button
+                                    type='button'
+                                    onClick={() => handleDeleteQuestion(question.id)}>
+                                    <img src={deleteImg} alt="deletar pergunta" />
+                                </button>
+                            </Question>
                             )
                         }
                     )}
